@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ship Classification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .form-group input[type="file"] {
+            display: block;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-group .preview-image {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .form-group .preview-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .form-group input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .ship-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .ship-card {
+      flex: 0 0 calc(50% - 20px);
+      margin-bottom: 20px;
+      background-color: #FFFFFF;
+      border-radius: 4px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .ship-image {
+      width: 100%;
+      max-width: 200px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .ship-type {
+      font-weight: bold;
+      color: #2E8B57;
+    }
+
+    .cargo-float {
+      background-color: #C8E6C9;
+    }
+
+    .carrier-float {
+      background-color: #FCE4EC;
+    }
+
+    .cruise-float {
+      background-color: #E1BEE7;
+    }
+
+    .military-float {
+      background-color: #FFF9C4;
+    }
+
+    .tanker-float {
+      background-color: #B2EBF2;
+    }
+
+    .project-description {
+      margin-top: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    </style>
+    <script>
+        function previewImage(event) {
+            var preview = document.querySelector('.preview-image img');
+            var file = event.target.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function() {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+                document.querySelector('.preview-image').style.display = 'block';
+            } else {
+                preview.src = '';
+                document.querySelector('.preview-image').style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Ship Classification</h1>
+        <form action="/classify" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image">Upload an image:</label>
+                <input type="file" name="image" id="image" onchange="previewImage(event)">
+                <div class="preview-image">
+                    <img src="" alt="Preview">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Classify">
+            </div>
+        </form>
+    </div>
+
+<div class="ship-container">
+    <div class="ship-card cargo-float">
+      <img class="ship-image" src="https://grist.org/wp-content/uploads/2021/03/Maersk-container-ship-e1614978284476.jpg" alt="Cargo Ship">
+      <div class="ship-type">Cargo</div>
+      <div class="ship-description">A ship designed for transporting goods and general cargo.</div>
+      <div class="ship-example">Example: Container ship, Bulk carrier</div>
+    </div>
+    <div class="ship-card carrier-float">
+      <img class="ship-image" src="https://hips.hearstapps.com/hmg-prod/images/3003079-1582233822.jpg?crop=0.653xw:1.00xh;0.173xw,0&resize=1200:*" alt="Carrier Ship">
+      <div class="ship-type">Carrier</div>
+      <div class="ship-description">A ship used for transporting aircraft, typically for military purposes.</div>
+      <div class="ship-example">Example: Aircraft carrier</div>
+    </div>
+    <div class="ship-card cruise-float">
+      <img class="ship-image" src="https://www.marineinsight.com/wp-content/uploads/2019/08/Cruise-ships-1.png" alt="Cruise Ship">
+      <div class="ship-type">Cruise</div>
+      <div class="ship-description">A ship built for leisure travel and passenger transportation.</div>
+      <div class="ship-example">Example: Cruise ship</div>
+    </div>
+    <div class="ship-card military-float">
+      <img class="ship-image" src="https://media.cnn.com/api/v1/images/stellar/prod/170618160409-uss-fitzgerald-file-photo.jpg?q=x_0,y_0,h_2561,w_4551,c_fill/w_800" alt="Military Ship">
+      <div class="ship-type">Military</div>
+      <div class="ship-description">A ship operated by the armed forces for various military purposes.</div>
+      <div class="ship-example">Example: Destroyer, Frigate</div>
+    </div>
+    <div class="ship-card tanker-float">
+      <img class="ship-image" src="https://www.ics-shipping.org/wp-content/uploads/2020/10/tanker.jpg" alt="Tanker Ship">
+      <div class="ship-type">Tankers</div>
+      <div class="ship-description">Ships designed for transporting liquids, such as oil, gas, or chemicals, in bulk.</div>
+      <div class="ship-example">Example: Oil tanker, LNG carrier</div>
+    </div>
+  </div>
+
+  <div class="project-description">
+    <h2>About</h2>
+    <p>
+      Ship Classification is a project aimed at classifying ships into five different types: Cargo, Carrier, Cruise, Military, and Tankers.
+      The classification is based on various features and characteristics of the ships, such as their design, purpose, and cargo capacity.
+    </p>
+    <p>
+      The project utilizes advanced machine learning algorithms and techniques to analyze ship data and make accurate predictions regarding their classification.
+      The trained model takes into account various parameters and patterns to classify an input ship image into one of the five types.
+    </p>
+    <p>
+      Ship Classification offers a user-friendly interface where users can upload their ship images and receive instant classification results.
+      The model has been trained on a diverse dataset of ship images, ensuring reliable and accurate classification outcomes.
+    </p>
+  </div>
+</body>
+</html>
